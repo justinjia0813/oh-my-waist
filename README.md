@@ -60,6 +60,39 @@ oh-my-waist/
 
 把这个目录放进你的 Agent Skill 目录即可。
 
+如果你正在 Codex、Claude Code 或其他 TUI 里，可以直接让 Agent 运行下面对应的一段。
+
+### Codex Desktop
+
+```bash
+mkdir -p ~/.codex/skills
+git clone https://github.com/justinjia0813/oh-my-waist.git ~/.codex/skills/oh-my-waist
+```
+
+### Codex 风格共享目录
+
+```bash
+mkdir -p ~/.agents/skills
+git clone https://github.com/justinjia0813/oh-my-waist.git ~/.agents/skills/oh-my-waist
+```
+
+### Claude Code
+
+```bash
+mkdir -p ~/.claude/skills
+git clone https://github.com/justinjia0813/oh-my-waist.git ~/.claude/skills/oh-my-waist
+```
+
+### 更新
+
+已经安装过的话，进入对应目录拉一下即可：
+
+```bash
+git -C ~/.codex/skills/oh-my-waist pull --ff-only
+```
+
+如果你安装在 `~/.agents/skills` 或 `~/.claude/skills`，把上面的路径换成对应目录。
+
 常见位置：
 
 - Codex Desktop: `~/.codex/skills/oh-my-waist/`
