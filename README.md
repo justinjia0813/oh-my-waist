@@ -44,8 +44,10 @@ from `AGENTS.md`, `CLAUDE.md`, or an equivalent startup instruction.
 - No reminder at session start.
 - No interruption during active user-agent exchange.
 - One short reminder at a natural pause in longer sessions.
-- In TUI recap/status UIs, one light-green `✶ Oh my waist: ...` line below the
+- In TUI recap/status UIs, one light-green `✶ Oh my waist：...` line below the
   recap when supported.
+- Reminder text defaults to Chinese unless the active conversation clearly uses
+  another language.
 - Cooldown after a reminder.
 - Immediate silence if the user asks to pause or stop reminders.
 

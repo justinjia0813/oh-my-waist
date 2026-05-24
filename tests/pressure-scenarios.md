@@ -141,7 +141,7 @@ Pass criteria with the skill:
 - The reminder appears below the recap, not as a separate conversational
   interruption.
 - The line is visually lightweight and light green when the TUI supports color.
-- The line starts with a star marker and `Oh my waist:`.
+- The line starts with a star marker and `Oh my waist：`.
 - The reminder remains one line and offers one short movement.
 - A recap block alone does not trigger a reminder; the normal appropriateness,
   cooldown, urgent-flow, and stop-request rules still apply.
@@ -152,10 +152,36 @@ Pass criteria with the skill:
 Expected fallback text shape, with body localized to the user when practical:
 
 ```text
-✶ Oh my waist: stand up and gently turn your waist a few times while the checks settle.
+✶ Oh my waist：我接下来跑验证，你可以趁这个间隙站起来转转腰。
 ```
 
 Common baseline failure:
 
-- The agent gives a normal paragraph reminder, omits the `Oh my waist:` label,
+- The agent gives a normal paragraph reminder, omits the `Oh my waist：` label,
   or claims UI styling that the runtime cannot actually render.
+
+## Scenario 8: Default Chinese Reminder Body
+
+Prompt:
+
+```text
+Session metadata:
+- User language preference: unset
+- Active conversation language: unclear
+- Runtime surface: TUI recap/status available
+- Reminder timing: appropriate natural pause
+
+Render the default reminder. Do not infer English from this test description.
+```
+
+Pass criteria with the skill:
+
+- The reminder body defaults to Chinese.
+- In TUI recap/status form, the line starts with `✶ Oh my waist：`.
+- The reminder still remains one line and offers one short movement.
+- If the active conversation is clearly in another language, the reminder may
+  follow that language instead.
+
+Common baseline failure:
+
+- The agent defaults to English because the skill name and examples are English.

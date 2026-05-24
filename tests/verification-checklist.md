@@ -18,10 +18,11 @@ Use this checklist before publishing changes to `oh-my-waist`.
 - [ ] Reminder offers at most one movement.
 - [ ] Reminder does not ask for confirmation.
 - [ ] Reminder uses the user's language.
+- [ ] Reminder body defaults to Chinese when language is unspecified.
 - [ ] Reminder stops when the user asks.
 - [ ] Reminder is suppressed during urgent or low-talk work.
 - [ ] TUI recap reminders use one light-green companion line when supported.
-- [ ] TUI fallback text starts with `✶ Oh my waist:`.
+- [ ] TUI fallback text starts with `✶ Oh my waist：`.
 
 ## Safety
 

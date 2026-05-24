@@ -24,6 +24,8 @@ Use the skill as a conversation policy, not a background process:
 - No reminder if the agent is not already sending a useful update.
 - Natural pauses are preferred over exact wall-clock timing.
 - If a reminder is due and Hermes has a recap/status area, place one light-green
-  `✶ Oh my waist: ...` line below it; otherwise use plain text.
+  `✶ Oh my waist：...` line below it; otherwise use plain text.
+- Default the reminder body to Chinese unless another conversation language is
+  clear.
 
 This makes the skill portable even when Hermes lacks a dedicated skill loader.

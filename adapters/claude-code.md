@@ -35,11 +35,13 @@ When a reminder is already appropriate and Claude Code exposes a recap-like
 block, render it below the recap as one light-green line:
 
 ```text
-✶ Oh my waist: stand up and gently turn your waist a few times while the checks settle.
+✶ Oh my waist：我接下来跑验证，你可以趁这个间隙站起来转转腰。
 ```
 
 If recap placement or color is unavailable, keep the same one-line shape in the
 normal message. Do not simulate unsupported UI styling.
+The default reminder body is Chinese unless the active conversation clearly uses
+another language.
 
 Avoid turning the reminder into a checklist item unless the user explicitly asks
 for wellness tracking.
