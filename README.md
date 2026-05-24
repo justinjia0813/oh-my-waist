@@ -76,3 +76,5 @@ oh-my-waist/
 ## 一句话
 
 `oh-my-waist` 不想管理你的身体，它只是帮 Agent 在合适的时候少说一句废话，多说一句有用的腰部提醒。
+
+Save your waist before your disk is done building.
