@@ -1,18 +1,48 @@
 # oh-my-waist
 
-`oh-my-waist` is a lightweight agent skill for long desk-work sessions.
+给久坐的 Agent 驾驶员，一个不吵不闹的腰部小提醒。
 
-It does not run a timer, daemon, pop-up, or health app. It teaches an agent to
-notice natural pauses in a long coding, research, debugging, or agent-run
-session and attach a short waist-movement reminder only when it will not compete
-with the user's work.
+`oh-my-waist` 是一个轻量 Skill。它不会启动闹钟，不会弹窗，不会假装自己是健身私教，也不会在你正和 Agent 对话时突然跳出来抢戏。它只做一件事：
 
-## Principle
+> 当工作流本来就停一下的时候，顺手提醒你站起来活动一下腰。
 
-The reminder should feel like a quiet affordance attached to an existing pause,
-not like an additional task.
+比如 Agent 准备跑测试、等构建、做验证、汇总一轮结果时，它可以在不打断工作的地方轻轻补上一行：
 
-## Project Shape
+```text
+✶ Oh my waist：我接下来跑验证，你可以趁这个间隙站起来转转腰。
+```
+
+如果 Codex、Claude Code 或类似 TUI 支持 recap/status 区域，这一行适合放在 recap 下面，用浅绿色显示。  
+如果客户端不支持颜色或专门位置，那就退化成普通的一行文本。重点是：不装、不吵、不追问。
+
+## 它适合谁
+
+- 长时间写代码、改 bug、跑测试的人。
+- 让 Agent 连续干活，自己在电脑前盯进度的人。
+- 经常进入“我再看一眼就起来”，结果一小时过去的人。
+- 想要一点健康提醒，但受不了健康 App 训话的人。
+
+## 它不是什么
+
+- 不是后台 daemon。
+- 不是定时弹窗。
+- 不是运动打卡系统。
+- 不是医疗建议。
+- 不是“每 30 分钟强行打断你一次”的生产力破坏器。
+
+它更像一个懂分寸的同事：看到你和 Agent 都在等测试，就轻轻说一句“现在刚好可以站起来转转腰”。
+
+## 默认行为
+
+- 新 session 开始时不提醒。
+- 用户和 Agent 正在密集交互时不插话。
+- 只在自然停顿点提醒一次。
+- 默认提醒正文为中文，除非当前对话明显是其他语言。
+- TUI recap/status 场景优先使用 `✶ Oh my waist：...` 单行提醒。
+- 用户说“别提醒”“专注模式”“晚点”时，立即降噪。
+- 不追问你有没有真的站起来。
+
+## 项目结构
 
 ```text
 oh-my-waist/
@@ -26,31 +56,23 @@ oh-my-waist/
     verification-checklist.md
 ```
 
-## Install
+## 安装
 
-Copy this directory into the personal skill folder used by your agent runtime.
+把这个目录放进你的 Agent Skill 目录即可。
 
-Common locations:
+常见位置：
 
 - Codex Desktop: `~/.codex/skills/oh-my-waist/`
-- Shared Codex-style skills: `~/.agents/skills/oh-my-waist/`
+- Codex 风格共享目录: `~/.agents/skills/oh-my-waist/`
 - Claude Code: `~/.claude/skills/oh-my-waist/`
 
-If your runtime supports project instructions, you can also reference the skill
-from `AGENTS.md`, `CLAUDE.md`, or an equivalent startup instruction.
+如果你的运行时支持项目级说明，也可以在 `AGENTS.md`、`CLAUDE.md` 或等价入口里引用它。
 
-## Expected Behavior
+## 验证
 
-- No reminder at session start.
-- No interruption during active user-agent exchange.
-- One short reminder at a natural pause in longer sessions.
-- In TUI recap/status UIs, one light-green `✶ Oh my waist: ...` line below the
-  recap when supported.
-- Cooldown after a reminder.
-- Immediate silence if the user asks to pause or stop reminders.
+- `tests/pressure-scenarios.md`：用压力场景测试 Agent 会不会乱提醒。
+- `tests/verification-checklist.md`：发布前检查轻量、中文默认、TUI recap、停止提醒等规则。
 
-## Verification
+## 一句话
 
-Use `tests/pressure-scenarios.md` to test whether an agent follows the policy
-under pressure. Use `tests/verification-checklist.md` before publishing changes
-to the skill.
+`oh-my-waist` 不想管理你的身体，它只是帮 Agent 在合适的时候少说一句废话，多说一句有用的腰部提醒。

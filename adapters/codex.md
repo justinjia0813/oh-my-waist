@@ -46,11 +46,13 @@ If a reminder is already appropriate and Codex exposes a recap/status area,
 render it below the recap as one low-contrast light-green line:
 
 ```text
-✶ Oh my waist: stand up and gently turn your waist a few times while the checks settle.
+✶ Oh my waist：我接下来跑验证，你可以趁这个间隙站起来转转腰。
 ```
 
 If that UI placement or color is not available, emit the same line shape as
 normal text inside the existing update. Do not add a separate interruption.
+The default reminder body is Chinese unless the active conversation clearly uses
+another language.
 
 Do not use a separate automation unless the user asks for recurring reminders.
 The default skill stays inside the conversation flow.

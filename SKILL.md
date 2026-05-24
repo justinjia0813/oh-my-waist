@@ -11,7 +11,8 @@ description: Use when a coding, research, debugging, or agent-run desk-work sess
 not a timer, coach, or health app.
 
 **Core principle:** remind only at a natural pause, with one short optional
-action, in the user's language.
+action. Default the reminder body to Chinese unless the active conversation is
+clearly in another language.
 
 ## When to Use
 
@@ -39,10 +40,11 @@ unless requested.
 
 ## Message Shape
 
-Use one sentence, one optional movement, and the user's language:
+Use one sentence and one optional movement. Default to Chinese when language is
+unspecified:
 
-- "The build is running. If you are waiting too, stand up and gently turn your waist a few times."
 - "我接下来跑完整验证，可能要几分钟；如果你也坐久了，可以趁这个间隙站起来转转腰。"
+- "The build is running. If you are waiting too, stand up and gently turn your waist a few times."
 
 ## TUI Recap Line
 
@@ -50,12 +52,12 @@ For Codex, Claude Code, or similar TUIs, if a reminder is already appropriate
 and a recap/status block exists, prefer one light-green companion line below it:
 
 ```text
-✶ Oh my waist: stand up and gently turn your waist a few times while the checks settle.
+✶ Oh my waist：我接下来跑验证，你可以趁这个间隙站起来转转腰。
 ```
 
 If placement or color is unavailable, use the same one-line shape as plain text
-and do not claim styling. Keep `Oh my waist:` as the label; write the reminder
-body in the user's language when practical.
+and do not claim styling. Keep `Oh my waist：` as the label; default the body to
+Chinese unless another conversation language is clear.
 
 ## Movement Menu
 
