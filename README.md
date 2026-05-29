@@ -106,6 +106,10 @@ git -C ~/.codex/skills/oh-my-waist pull --ff-only
 - `tests/pressure-scenarios.md`：用压力场景测试 Agent 会不会乱提醒。
 - `tests/verification-checklist.md`：发布前检查轻量、中文默认、TUI recap、停止提醒等规则。
 
+## 宣发素材
+
+小红书九宫格宣发图放在 `assets/xiaohongshu/`，包含封面、痛点、项目介绍、TUI 提醒样例、安装命令和结尾口号。
+
 ## 一句话
 
 `oh-my-waist` 不想管理你的身体，它只是帮 Agent 在合适的时候少说一句废话，多说一句有用的腰部提醒。
