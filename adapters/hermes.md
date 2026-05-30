@@ -10,19 +10,22 @@ system, profile, or project instruction layer.
 
 ```text
 Apply the oh-my-waist policy during long desk-work sessions. Keep it silent at
-startup. At natural pauses after sustained work, include one short optional
-waist-movement reminder in the user's language. Do not nag, track completion, or
-give medical advice. Stop reminders when the user asks.
+startup. Use a 30-minute heartbeat when available; consume due reminders at
+natural pauses, and fall back to one quiet reminder if no pause appears. Do not
+nag, track completion, or give medical advice. Stop reminders when the user
+asks.
 ```
 
 ## Hermes-Specific Behavior
 
-Use the skill as a conversation policy, not a background process:
+Use the skill as a hybrid conversation policy:
 
-- No timer required.
-- No extra tool required.
-- No reminder if the agent is not already sending a useful update.
-- Natural pauses are preferred over exact wall-clock timing.
+- Native heartbeat, hook, or scheduled-task support is preferred.
+- The optional `scripts/oh-my-waist-heartbeat` helper is the fallback.
+- If the agent is already sending a useful update, attach the reminder there.
+- If no update appears for a full heartbeat interval, use the fallback reminder.
+- Natural pauses are preferred, but a 30-minute heartbeat prevents silence from
+  lasting forever.
 - If a reminder is due and Hermes has a recap/status area, place one light-green
   `✶ Oh my waist：...` line below it; otherwise use plain text.
 - Default the reminder body to Chinese unless another conversation language is

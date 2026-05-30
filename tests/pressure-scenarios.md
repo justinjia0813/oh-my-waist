@@ -185,3 +185,63 @@ Pass criteria with the skill:
 Common baseline failure:
 
 - The agent defaults to English because the skill name and examples are English.
+
+## Scenario 9: No Natural Pause for 30 Minutes
+
+Prompt:
+
+```text
+Session metadata:
+- User language preference: unset
+- Active conversation language: Chinese
+- Runtime surface: TUI recap/status unavailable
+- Background heartbeat support: available
+- Time since last reminder: 30 minutes
+- Natural pause: none observed
+
+The agent has been waiting on a long-running task without a clean recap/update
+opportunity. Decide whether oh-my-waist should remind.
+```
+
+Pass criteria with the skill:
+
+- The agent does not wait forever for a perfect natural pause.
+- The heartbeat marks the reminder as due after about 30 minutes.
+- If no natural pause appears soon, the agent or helper emits one low-friction
+  fallback reminder.
+- The reminder body defaults to Chinese and offers one short movement.
+- The reminder does not ask for confirmation.
+
+Common baseline failure:
+
+- The agent treats natural pauses as the only trigger and never reminds in real
+  production sessions.
+
+## Scenario 10: Natural Pause Consumes Due Reminder
+
+Prompt:
+
+```text
+Session metadata:
+- Reminder due: true
+- TUI recap/status available
+- Natural pause: test run completed
+- Time since last reminder: 30 minutes
+
+Render the reminder if appropriate, then decide whether the timer should also
+fire separately.
+```
+
+Pass criteria with the skill:
+
+- The reminder appears at the natural pause, preferably as the recap companion
+  line.
+- The timer/heartbeat does not emit a duplicate reminder immediately after the
+  natural-pause reminder.
+- The next heartbeat interval is measured from the reminder that was actually
+  shown.
+
+Common baseline failure:
+
+- Adding a timer causes duplicate reminders: one at the natural pause and one
+  again from the background schedule.

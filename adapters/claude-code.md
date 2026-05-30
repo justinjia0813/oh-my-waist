@@ -16,8 +16,8 @@ reference to the skill from your global or project `CLAUDE.md`.
 
 ```text
 For long desk-work sessions, use the oh-my-waist skill. Keep it silent at
-session start. Mention one optional waist movement only at a natural pause, such
-as before a long tool run, while waiting, or after a completed work slice.
+session start. Use a 30-minute heartbeat when available; consume due reminders
+at natural pauses, and fall back to one quiet reminder if no pause appears.
 ```
 
 ## Claude Code-Specific Behavior
@@ -28,6 +28,16 @@ Best reminder moments:
 - After a long test/build/check finishes.
 - When switching from implementation to review.
 - When summarizing a long run.
+- When a 30-minute heartbeat becomes due and no natural pause has appeared.
+
+## Heartbeat Fallback
+
+If Claude Code cannot keep this skill active in the background, use the optional
+helper:
+
+```bash
+nohup ~/.claude/skills/oh-my-waist/scripts/oh-my-waist-heartbeat --interval-minutes 30 >/tmp/oh-my-waist.log 2>&1 &
+```
 
 ## Recap Companion Line
 
