@@ -13,7 +13,7 @@ Use this checklist before publishing changes to `oh-my-waist`.
 ## Lightweight Behavior
 
 - [ ] No reminder at session start.
-- [ ] Reminder appears only at a natural pause.
+- [ ] Reminder prefers natural pauses but has heartbeat fallback for long silence.
 - [ ] Reminder is one sentence.
 - [ ] Reminder offers at most one movement.
 - [ ] Reminder does not ask for confirmation.
@@ -21,6 +21,8 @@ Use this checklist before publishing changes to `oh-my-waist`.
 - [ ] Reminder body defaults to Chinese when language is unspecified.
 - [ ] Reminder stops when the user asks.
 - [ ] Reminder is suppressed during urgent or low-talk work.
+- [ ] A 30-minute heartbeat can mark reminders due in long silent sessions.
+- [ ] Natural-pause reminders consume due reminders and prevent duplicates.
 - [ ] TUI recap reminders use one light-green companion line when supported.
 - [ ] TUI fallback text starts with `✶ Oh my waist：`.
 
@@ -35,7 +37,8 @@ Use this checklist before publishing changes to `oh-my-waist`.
 
 - [ ] No dependency on Codex-only tools.
 - [ ] No dependency on Claude-only tools.
-- [ ] No daemon, timer, notification API, or operating-system feature required.
+- [ ] Core skill remains portable without Codex-only or Claude-only features.
+- [ ] Optional helper is clearly documented as a fallback, not a hard dependency.
 - [ ] Adapter files remain optional and do not contradict `SKILL.md`.
 
 ## Pressure Tests

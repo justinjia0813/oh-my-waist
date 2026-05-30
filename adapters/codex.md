@@ -25,9 +25,10 @@ in most sessions:
 
 ```text
 For long coding, debugging, research, or agent-run sessions, silently apply the
-oh-my-waist policy. Do not mention it at session start. If a natural pause occurs
-after sustained work, add one short optional waist-movement reminder. Stop for
-the session if I ask you not to remind me.
+oh-my-waist policy. Do not mention it at session start. Use a 30-minute
+heartbeat when available; consume due reminders at natural pauses, and fall back
+to one quiet reminder if no pause appears. Stop for the session if I ask you not
+to remind me.
 ```
 
 ## Codex-Specific Behavior
@@ -39,6 +40,16 @@ Best reminder moments:
 - While waiting for a long-running terminal command.
 - After a large edit before starting verification.
 - In the final summary after an extended work slice.
+- When a 30-minute heartbeat becomes due and no natural pause has appeared.
+
+## Heartbeat Fallback
+
+If Codex has a native heartbeat/thread reminder capability, prefer it. If not,
+use the optional helper:
+
+```bash
+nohup ~/.codex/skills/oh-my-waist/scripts/oh-my-waist-heartbeat --interval-minutes 30 >/tmp/oh-my-waist.log 2>&1 &
+```
 
 ## Recap Companion Line
 
@@ -54,5 +65,5 @@ normal text inside the existing update. Do not add a separate interruption.
 The default reminder body is Chinese unless the active conversation clearly uses
 another language.
 
-Do not use a separate automation unless the user asks for recurring reminders.
-The default skill stays inside the conversation flow.
+Use natural pauses first, but do not wait forever for one. The heartbeat exists
+to make the skill work during long silent runs.

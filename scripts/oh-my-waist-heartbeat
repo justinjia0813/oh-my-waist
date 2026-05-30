@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DEFAULT_MESSAGE="我接下来会继续等任务进度，你可以趁这个间隙站起来转转腰。"
+INTERVAL_MINUTES="30"
+INTERVAL_SECONDS=""
+MODE="auto"
+ONCE="false"
+MESSAGE="${OH_MY_WAIST_MESSAGE:-$DEFAULT_MESSAGE}"
+
+usage() {
+  cat <<'USAGE'
+Usage: oh-my-waist-heartbeat [options]
+
+Options:
+  --interval-minutes N  Reminder interval in minutes. Default: 30.
+  --interval-seconds N  Reminder interval in seconds. Useful for testing.
+  --message TEXT        Reminder body. Defaults to Chinese.
+  --once                Emit one reminder and exit.
+  --stdout              Print the reminder to stdout instead of OS notification.
+  --help                Show this help.
+
+Example:
+  nohup scripts/oh-my-waist-heartbeat --interval-minutes 30 >/tmp/oh-my-waist.log 2>&1 &
+USAGE
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --interval-minutes)
+      INTERVAL_MINUTES="${2:?Missing value for --interval-minutes}"
+      shift 2
+      ;;
+    --interval-seconds)
+      INTERVAL_SECONDS="${2:?Missing value for --interval-seconds}"
+      shift 2
+      ;;
+    --message)
+      MESSAGE="${2:?Missing value for --message}"
+      shift 2
+      ;;
+    --once)
+      ONCE="true"
+      shift
+      ;;
+    --stdout)
+      MODE="stdout"
+      shift
+      ;;
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+interval_seconds() {
+  if [[ -n "$INTERVAL_SECONDS" ]]; then
+    printf '%s\n' "$INTERVAL_SECONDS"
+  else
+    printf '%s\n' "$((INTERVAL_MINUTES * 60))"
+  fi
+}
+
+escape_applescript() {
+  printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
+}
+
+emit_stdout() {
+  printf '✶ Oh my waist：%s\n' "$MESSAGE"
+}
+
+emit_notification() {
+  if [[ "$MODE" == "stdout" ]]; then
+    emit_stdout
+    return
+  fi
+
+  if command -v osascript >/dev/null 2>&1; then
+    local escaped
+    escaped="$(escape_applescript "$MESSAGE")"
+    osascript -e "display notification \"$escaped\" with title \"Oh my waist\"" >/dev/null
+    return
+  fi
+
+  if command -v notify-send >/dev/null 2>&1; then
+    notify-send "Oh my waist" "$MESSAGE"
+    return
+  fi
+
+  emit_stdout
+}
+
+if [[ "$ONCE" == "true" ]]; then
+  emit_notification
+  exit 0
+fi
+
+while true; do
+  sleep "$(interval_seconds)"
+  emit_notification
+done
